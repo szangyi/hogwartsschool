@@ -63,3 +63,20 @@ table tr:last-child td {
 table tr td:last-child {
   border-right: 0;
 }
+
+/*styling modal*/
+div.modal {
+  background-color: black;
+  position: fixed;
+  z-index: 10;
+  top: 8rem;
+  color: var(--main-color);
+  width: 50%;
+  overflow: scroll;
+  position: fixed;
+  left: 25%;
+}
+
+.hide {
+  display: none;
+}
