@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hogwarts School of Witchcraft and Wizardry</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Hogwarts Students</h1>
+      <h3>
+        This is some text regarding the list. Who is on the list what to know
+        about the whole hogwarts school. Also number of students and number of
+        expelled students.Also number of students and number of expelled
+        students. <br />
+        List of things you can do: On this page you can do this and this and
+        that. You can expel a student but you can also prefect them, but only 2
+        per house. but you can also prefect them, but only 2 per house.
+      </h3>
+    </header>
+
+    <div class="houses-grid">
+      <div class="house-1">
+        <div class="house-1-img"></div>
+        <div class="house-1-studentsnr">24 students</div>
+        <div class="house-1-prefectnr">Prefect selected: 0/2</div>
+      </div>
+
+      <div class="house-2">
+        <div class="house-2-img"></div>
+        <div class="house-2-studentsnr">24 students</div>
+        <div class="house-2-prefectnr">Prefect selected: 0/2</div>
+      </div>
+
+      <div class="house-3">
+        <div class="house-3-img"></div>
+        <div class="house-3-studentsnr">24 students</div>
+        <div class="house-3-prefectnr">Prefect selected: 0/2</div>
+      </div>
+
+      <div class="house-4">
+        <div class="house-4-img"></div>
+        <div class="house-4-studentsnr">24 students</div>
+        <div class="house-4-prefectnr">Prefect selected: 0/2</div>
+      </div>
+    </div>
+
+    <table id="list">
+      <thead>
+        <tr>
+          <th></th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Middle Name</th>
+          <th>Nickname</th>
+          <!-- <th>Image Filename</th> -->
+          <th>House</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- student template will be copied and inserted here -->
+      </tbody>
+    </table>
+
+    <template id="student">
+      <tr>
+        <!-- <td data-field="fullName">FULL NAME</td> -->
+        <td data-field="avatar">AVATAR</td>
+        <td data-field="firstName">FIRST NAME</td>
+        <td data-field="lastName">LAST NAME</td>
+        <td data-field="middleName">MIDDLE NAME</td>
+        <td data-field="nickName">NICKNAME</td>
+        <!-- <td data-field="imageFilename">IMAGE FILENAME</td> -->
+        <td data-field="house">HOUSE</td>
+        <td data-field="house">PREFECT-BUTTON</td>
+        <td data-field="house">EXPELL-BUTTON</td>
+      </tr>
+    </template>
+
+    <script src="script.js"></script>
+
+    <footer></footer>
+  </body>
+</html>
