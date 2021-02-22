@@ -13,9 +13,29 @@ const Student = {
   house: "",
 };
 
+//set global variables for sort and filter
+const settings = {
+  filterBy: "all",
+  sortBy: "name",
+  sortDir: "asc",
+};
+
 function start() {
   console.log("ready");
+  // TODO: Add event-listeners to filter and sort buttons
+  registerButtons();
+
   loadJSON();
+}
+
+function registerButtons() {
+  document
+    .querySelectorAll("[data-action='filter']")
+    .forEach((button) => button.addEventListener("click", selectFilter));
+
+  // document
+  //   .querySelectorAll("[data-action='sort']")
+  //   .forEach((button) => button.addEventListener("click", selectSort));
 }
 
 function loadJSON() {
@@ -27,6 +47,7 @@ function loadJSON() {
 }
 
 function prepareObjects(jsonData) {
+  console.log("jsonprepareloads");
   jsonData.forEach((student) => {
     // we use "Student" prototype to create "newStudent"
     const newStudent = Object.create(Student);
@@ -64,7 +85,7 @@ function prepareObjects(jsonData) {
         console.log(fullNameFinal);
       } else {
         const fullNameFinal = `${firstNameFinal} ${lastNameFinal}`;
-        console.log(fullNameFinal);
+        // console.log(fullNameFinal);
       }
     }
 
@@ -82,12 +103,87 @@ function prepareObjects(jsonData) {
 
     const split = new Set([firstNameFinal, middleNameFinal, lastNameFinal]);
     let nameSplit = Array.from(split);
+
+    return split;
   });
 
-  displayList();
+  displayList(allStudents);
 }
 
-function displayList() {
+//filter
+function selectFilter(event) {
+  const filter = event.target.dataset.filter;
+  console.log(`User selected ${filter}`);
+  setFilter(filter);
+}
+
+function setFilter(filter) {
+  settings.filterBy = filter;
+  buildList();
+}
+
+function filterList(filteredList) {
+  // let filteredList = allAnimals;
+
+  if (settings.filterBy === "griff") {
+    filteredList = allStudents.filter(isGriff);
+  } else if (settings.filterBy === "huff") {
+    filteredList = allStudents.filter(isHuff);
+  } else if (settings.filterBy === "rav") {
+    filteredList = allStudents.filter(isRav);
+  } else if (settings.filterBy === "sly") {
+    filteredList = allStudents.filter(isSly);
+  }
+  return filteredList;
+  // displayList(filteredList);
+}
+
+function isGriff(student) {
+  console.log("griffruns");
+  if (student.house === "Gryffindor") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isHuff(student) {
+  // console.log("griffruns");
+  if (student.house === "Hufflepuff") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isRav(student) {
+  // console.log("griffruns");
+  if (student.house === "Ravenclaw") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isSly(student) {
+  // console.log("griffruns");
+  if (student.house === "Slytherin") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function buildList() {
+  console.log("buildlistworks");
+  const currentList = filterList(allStudents);
+  // const sortedList = sortList(currentList);
+
+  displayList(currentList);
+}
+
+function displayList(allStudents) {
+  console.log("displaylistworks");
   // clear the list
   document.querySelector("#list tbody").innerHTML = "";
 
@@ -122,7 +218,7 @@ function displayStudent(newStudent) {
     newStudent.lastName;
   // clone.querySelector("[data-field=nickname]").textContent = newStudent.nickName;
   //clone.querySelector("[data-field=imageFilename]").textContent = newStudent.; //imageFilename
-  // clone.querySelector("[data-field=house]").textContent = newStudent.house;
+  clone.querySelector("[data-field=house]").textContent = newStudent.house;
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);

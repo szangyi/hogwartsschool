@@ -47,13 +47,48 @@
       </div>
     </div>
 
+    <div class="filters">
+<div><p>Filter by house:
+<button class="filter" id="griff_filter" data-action="filter" data-filter="griff">
+            Griffindor house
+        </button>
+        <button class="filter" id="huff_filter" data-action="filter" data-filter="huff">
+            Hufflepuff house
+        </button>
+  <button class="filter" id="rav_filter" data-action="filter" data-filter="rav">
+            Ravenclaw house
+        </button>
+          <button class="filter" id="sly_filter" data-action="filter" data-filter="sly">
+            Slytherin house
+        </button>
+              <button class="filter" id="allhouse_filter" data-action="filter" data-filter="allhouse">
+            All houses
+        </button>
+</p>
+</div>
+
+<!-- <div><p>Filter by expel:
+<button class="filter" id="exp_filter" data-action="filter" data-filter="exp">
+            Expelled students
+        </button>
+        <button class="filter" id="nonexp_filter" data-action="filter" data-filter="nonexp">
+            Non-expelled students
+        </button>
+           <button class="filter" id="huff_filter" data-action="filter" data-filter="allexpstudents">
+            All students
+        </button>
+</p>
+</div> -->
+
+    </div>
+
     <table id="list">
       <thead>
-        <tr>
+        <tr id="sorting">
           <th></th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Middle Name</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="firstname">First Name</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Last Name</th>
+          <th >Middle Name</th>
           <th>Nickname</th>
           <!-- <th>Image Filename</th> -->
           <th>House</th>
@@ -76,8 +111,8 @@
         <td data-field="nickName">NICKNAME</td>
         <!-- <td data-field="imageFilename">IMAGE FILENAME</td> -->
         <td data-field="house">HOUSE</td>
-        <td data-field="house">PREFECT-BUTTON</td>
-        <td data-field="house">EXPELL-BUTTON</td>
+        <td data-field="prefbutton">PREFECT-BUTTON</td>
+        <td data-field="expbutton">EXPELL-BUTTON</td>
       </tr>
     </template>
 
