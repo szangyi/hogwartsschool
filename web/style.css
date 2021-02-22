@@ -30,17 +30,20 @@ header {
 h1 {
   font-family: var(--primary-font);
   color: var(--cream-color);
+  margin-bottom: 10px;
+}
+
+h2 {
+  text-transform: uppercase;
+  margin-top: 0;
+  font-weight: 100;
+  font-size: 1.5vw;
 }
 
 h3 {
   font-weight: 300;
   text-align: center;
   font-size: 1.5vw;
-}
-
-.houses-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 /* styling the table */
@@ -79,4 +82,39 @@ div.modal {
 
 .hide {
   display: none;
+}
+
+/* style houses crests */
+.houses-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 2vw 5vw 5vw 5vw;
+}
+
+.house-1-img {
+  background-image: url(images/griff.png);
+}
+
+.house-2-img {
+  background-image: url(images/huffle.png);
+}
+
+.house-3-img {
+  background-image: url(images/raven.png);
+}
+
+.house-4-img {
+  background-image: url(images/sly.png);
+}
+
+.houseimg {
+  background-size: contain;
+  width: 10vw;
+  height: 12.5vw;
+}
+
+.houseflex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
