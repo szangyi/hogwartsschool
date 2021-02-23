@@ -110,6 +110,51 @@ function prepareObjects(jsonData) {
   displayList(allStudents);
 }
 
+function displayList(students) {
+  console.log("newstudentlist");
+  // clear the list
+  document.querySelector("#list tbody").innerHTML = "";
+
+  // build a new list
+  students.forEach(displayStudent);
+}
+
+function displayStudent(newStudent) {
+  // create clone
+  console.log("displaystud");
+  const firstLetter = newStudent.firstName.substring(0, 1);
+  const clone = document
+    .querySelector("template#student")
+    .content.cloneNode(true);
+
+  // set clone data
+  // clone.querySelector("[data-field=fullName]").textContent = newStudent.fullName;
+  clone.querySelector("[data-field=firstName]").textContent =
+    newStudent.firstName;
+
+  if (newStudent.middleName.includes('"')) {
+    // let nickNameFinal = middleNameFinal
+    // console.log(nickNameFinal)
+    clone.querySelector("[data-field=nickName]").textContent =
+      newStudent.middleName;
+    clone.querySelector("[data-field=middleName]").textContent = " ";
+  } else {
+    clone.querySelector("[data-field=middleName]").textContent =
+      newStudent.middleName;
+    clone.querySelector("[data-field=nickName]").textContent = " ";
+  }
+
+  clone.querySelector("[data-field=lastName]").textContent =
+    newStudent.lastName;
+  // clone.querySelector("[data-field=nickname]").textContent = newStudent.nickName;
+  clone.querySelector("[data-field=avatar]").children[0].src =
+    "images/" + newStudent.lastName + "_" + firstLetter + ".png";
+  clone.querySelector("[data-field=house]").textContent = newStudent.house;
+
+  // append clone to list
+  document.querySelector("#list tbody").appendChild(clone);
+}
+
 //filter
 function selectFilter(event) {
   const filter = event.target.dataset.filter;
@@ -184,12 +229,14 @@ function buildList() {
 
 //generic sort function
 function selectSort(event) {
+  console.log("selectsort");
   const sortBy = event.target.dataset.sort;
   const sortDir = event.target.dataset.sortDirection;
 
   //find "old" sortby element and remove .sortBy
-  // const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
-  // oldElement.classList.remove("sortby");
+  const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
+  oldElement.classList.remove("sortby");
+  console.log(oldElement);
 
   //indicate active sort
   event.target.classList.add("sortby");
@@ -214,7 +261,7 @@ function setSort(sortBy, sortDir) {
 
 function sortList(sortedList) {
   let direction = 1;
-  if (settings.sortDir === "desc") {
+  if (settings.sortDir === "asc") {
     direction = -1;
   } else {
     settings.direction = 1;
@@ -232,46 +279,4 @@ function sortList(sortedList) {
   }
 
   return sortedList;
-}
-
-function displayList(students) {
-  console.log("newstudentlist");
-  // clear the list
-  document.querySelector("#list tbody").innerHTML = "";
-
-  // build a new list
-  students.forEach(displayStudent);
-}
-
-function displayStudent(newStudent) {
-  // create clone
-  const clone = document
-    .querySelector("template#student")
-    .content.cloneNode(true);
-
-  // set clone data
-  // clone.querySelector("[data-field=fullName]").textContent = newStudent.fullName;
-  clone.querySelector("[data-field=firstName]").textContent =
-    newStudent.firstName;
-
-  if (newStudent.middleName.includes('"')) {
-    // let nickNameFinal = middleNameFinal
-    // console.log(nickNameFinal)
-    clone.querySelector("[data-field=nickName]").textContent =
-      newStudent.middleName;
-    clone.querySelector("[data-field=middleName]").textContent = " ";
-  } else {
-    clone.querySelector("[data-field=middleName]").textContent =
-      newStudent.middleName;
-    clone.querySelector("[data-field=nickName]").textContent = " ";
-  }
-
-  clone.querySelector("[data-field=lastName]").textContent =
-    newStudent.lastName;
-  // clone.querySelector("[data-field=nickname]").textContent = newStudent.nickName;
-  //clone.querySelector("[data-field=imageFilename]").textContent = newStudent.; //imageFilename
-  clone.querySelector("[data-field=house]").textContent = newStudent.house;
-
-  // append clone to list
-  document.querySelector("#list tbody").appendChild(clone);
 }
