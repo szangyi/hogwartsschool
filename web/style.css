@@ -92,19 +92,19 @@ div.modal {
 }
 
 .house-1-img {
-  background-image: url(images/griff.png);
+  background-image: url(images/Gryffindor.png);
 }
 
 .house-2-img {
-  background-image: url(images/huffle.png);
+  background-image: url(images/Hufflepuff.png);
 }
 
 .house-3-img {
-  background-image: url(images/raven.png);
+  background-image: url(images/Ravenclaw.png);
 }
 
 .house-4-img {
-  background-image: url(images/sly.png);
+  background-image: url(images/Slytherin.png);
 }
 
 .houseimg {
@@ -119,6 +119,48 @@ div.modal {
   align-items: center;
 }
 
-.sortby {
-  color: red;
+/* styling sorting */
+[data-action] {
+  cursor: pointer;
 }
+
+#sorting th.sortby {
+  text-decoration: underline;
+}
+
+#sorting th.sortby {
+  text-decoration: underline;
+}
+
+#sorting th.sortby[data-sort-direction="asc"]::after {
+  content: "↑";
+}
+
+#sorting th.sortby[data-sort-direction="desc"]::after {
+  content: "↓";
+}
+
+/* house colors */
+div.modal.griff_house {
+  background-color: #b6602b;
+}
+
+div.modal.huff_house {
+  background-color: #252644;
+}
+
+div.modal.sly_house {
+  background-color: #155339;
+}
+
+div.modal.rav_house {
+  background-color: #19206c;
+}
+
+/* .crestimg {
+  background-size: contain;
+  width: 10vw;
+  height: 12.5vw;
+  position: absolute;
+  top: 10;
+} */

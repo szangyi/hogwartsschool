@@ -11,13 +11,11 @@
       <h1>Hogwarts School of Witchcraft and Wizardry</h1>
       <h2>List of Students</h2>
       <h3>
-        This is some text regarding the list. Who is on the list what to know
-        about the whole hogwarts school. Also number of students and number of
-        expelled students.Also number of students and number of expelled
-        students. <br />
-        List of things you can do: On this page you can do this and this and
-        that. You can expel a student but you can also prefect them, but only 2
-        per house. but you can also prefect them, but only 2 per house.
+        This is some text regarding the list. Who is on the list what to know about the whole hogwarts school. Also
+        number of students and number of expelled students.Also number of students and number of expelled students.
+        <br />
+        List of things you can do: On this page you can do this and this and that. You can expel a student but you can
+        also prefect them, but only 2 per house. but you can also prefect them, but only 2 per house.
       </h3>
     </header>
 
@@ -48,36 +46,28 @@
     </div>
 
     <div class="filters">
-<div><p>Filter by house:
-<button class="filter" id="griff_filter" data-action="filter" data-filter="griff">
-            Griffindor house
-        </button>
-        <button class="filter" id="huff_filter" data-action="filter" data-filter="huff">
-            Hufflepuff house
-        </button>
-  <button class="filter" id="rav_filter" data-action="filter" data-filter="rav">
-            Ravenclaw house
-        </button>
-          <button class="filter" id="sly_filter" data-action="filter" data-filter="sly">
-            Slytherin house
-        </button>
-              <button class="filter" id="allhouse_filter" data-action="filter" data-filter="allhouse">
-            All houses
-        </button>
-</p>
-</div>
-<div><p>Filter by expel:
-<button class="filter" id="exp_filter" data-action="filter" data-filter="exp">
-            Expelled students
-        </button>
-        <button class="filter" id="nonexp_filter" data-action="filter" data-filter="nonexp">
+      <div>
+        <p>
+          Filter by house:
+          <button class="filter" id="griff_filter" data-action="filter" data-filter="griff">Griffindor house</button>
+          <button class="filter" id="huff_filter" data-action="filter" data-filter="huff">Hufflepuff house</button>
+          <button class="filter" id="rav_filter" data-action="filter" data-filter="rav">Ravenclaw house</button>
+          <button class="filter" id="sly_filter" data-action="filter" data-filter="sly">Slytherin house</button>
+          <button class="filter" id="allhouse_filter" data-action="filter" data-filter="allhouse">All houses</button>
+        </p>
+      </div>
+      <div>
+        <p>
+          Filter by expel:
+          <button class="filter" id="exp_filter" data-action="filter" data-filter="exp">Expelled students</button>
+          <button class="filter" id="nonexp_filter" data-action="filter" data-filter="nonexp">
             Non-expelled students
-        </button>
-           <button class="filter" id="huff_filter" data-action="filter" data-filter="allexpstudents">
+          </button>
+          <button class="filter" id="huff_filter" data-action="filter" data-filter="allexpstudents">
             All students
-        </button>
-</p>
-</div>
+          </button>
+        </p>
+      </div>
     </div>
 
     <table id="list">
@@ -102,7 +92,7 @@
     <template id="student">
       <tr>
         <!-- <td data-field="fullName">FULL NAME</td> -->
-        <td data-field="avatar"><img src="images/nott_t.png"/></td>
+        <td class="avatar" data-field="avatar"><img src="images/nott_t.png" /></td>
         <td data-field="firstName">FIRST NAME</td>
         <td data-field="lastName">LAST NAME</td>
         <td data-field="middleName">MIDDLE NAME</td>
@@ -116,10 +106,20 @@
 
     <!-- modal -->
     <div class="modal hide">
+      <span class="closebutton"><p>X</p></span>
       <section class="studentdata">
-        <img src="images/nott_t.png"/>
-        <div class="data-modal">Full name</div>
-        <div class="studentinfo">
+        <div data-field="avatar"><img src="images/nott_t.png" /></div>
+        <div data-field="crest"><img class="crestimg" src="images/griff.svg" /></div>
+        <!-- <div class="fullName">Full name</div> -->
+        <div data-field="fullName">Full name</div>
+        <div data-field="firstName">First name</div>
+        <div data-field="middleName"></div>
+        <div data-field="nickName"></div>
+        <div data-field="lastName">LAST NAME</div>
+        <div data-field="house">HOUSE</div>
+        <div data-field="blood">HOUSE</div>
+
+        <!-- <div class="studentinfo">
           <div class="data-modal">
             <h4>First Name:</h4>
             <h4>Middle Name:</h4>
@@ -127,7 +127,7 @@
             <h4>Last Name:</h4>
             <h4>Blood:</h4>
             <h4>Extra info:</h4>
-          </div>
+          </div> -->
       </section>
     </div>
 
