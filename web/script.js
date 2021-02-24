@@ -230,8 +230,8 @@ function buildList() {
   const currentList = filterList(allStudents);
   const sortedList = sortList(currentList);
 
-  displayList(currentList);
-  // displayList(sortedList);
+  // displayList(currentList);
+  displayList(sortedList);
 }
 
 function displayList(allStudents) {
