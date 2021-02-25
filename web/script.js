@@ -17,6 +17,8 @@ const allStudents = [];
 let indexhyphen = 0;
 let firstLetterAfterHyphen = "";
 let smallLettersAfterHyphen = "";
+const search = document.querySelector(".search");
+search.addEventListener("input", searchStudent);
 
 const modal = document.querySelector(".modal");
 
@@ -31,6 +33,20 @@ function start() {
   // TODO: Add event-listeners to filter and sort buttons
   registerButtons();
   loadJSON();
+}
+
+function searchStudent(event) {
+  let searchList = allStudents.filter((student) => {
+    let searchName = "";
+    if (student.lastName === null) {
+      searchName = student.firstName;
+    } else {
+      searchName = student.firstName + " " + student.lastName;
+    }
+    return searchName.toLowerCase().includes(event.target.value);
+  });
+
+  displayList(searchList);
 }
 
 function registerButtons() {
