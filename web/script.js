@@ -9,6 +9,11 @@ const Student = {
   nickname: "",
   imageFilename: "",
   house: "",
+  gender: "",
+  prefect: false,
+  inqsquad: false,
+  expel: false,
+  blood: "",
 };
 
 const allStudents = [];
@@ -94,6 +99,9 @@ function prepareObjects(jsonData) {
     const house = jsonObject.house.trim();
     const houseFinal = house[0].toUpperCase() + house.substring(1).toLowerCase();
 
+    //GENDER
+    const gender = jsonObject.gender;
+
     const fullNameFinal = `${firstNameFinal} ${middleNameFinal} ${lastNameFinal}`;
 
     // showFullname();
@@ -102,11 +110,13 @@ function prepareObjects(jsonData) {
     student.middleName = middleNameFinal;
     student.lastName = lastNameFinal;
     student.fullName = fullNameFinal;
+    student.prefect = false;
     // student.gender = jsonObject.gender
     // newStudent.nickName = nickNameFinal
 
     //newStudent.imageFilename = ;
     student.house = houseFinal;
+    student.gender = gender;
 
     //store new object with cleaned data
     allStudents.push(student);
@@ -283,8 +293,132 @@ function displayStudent(student) {
   }
 
   clone.querySelector("[data-field=house]").textContent = student.house;
-
   clone.querySelector(".avatar").addEventListener("click", () => showDetails(student));
+
+  //prefect
+  //UI
+  if (student.prefect === true) {
+    // console.log("prefect true");
+    clone.querySelector("[data-field=prefect]").classList.add("color");
+  } else {
+    clone.querySelector("[data-field=prefect]").classList.remove("color");
+    // console.log("prefect false");
+  }
+
+  clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
+  clone.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
+
+  function clickPrefect() {
+    const conflictingStudent = allStudents.filter(checkGenderAndHouse);
+    if (student.prefect === true) {
+      console.log("if");
+      togglePrefect(student);
+      buildList();
+      // student.prefect = false;
+    } else if (conflictingStudent.length >= 1) {
+      console.log("else if");
+      prefectConflict(conflictingStudent[0]);
+      // checkPrefect(student);
+      // student.prefect = true;
+    } else {
+      //update list!
+      togglePrefect(student);
+      buildList();
+    }
+  }
+
+  function togglePrefect(student) {
+    console.log("toggle");
+    student.prefect = !student.prefect;
+  }
+
+  function checkGenderAndHouse(compareStudent) {
+    console.log("checkgender runs");
+    // const prefects = allStudents.filter((student) => student.prefect);
+    // const numberOfPrefects = prefects.length;
+    // const other = prefects.filter((student) => student.house === selectedStudent.house).shift();
+
+    //another attempt
+    if (
+      student.house === compareStudent.house &&
+      student.gender === compareStudent.gender &&
+      compareStudent.prefect === true
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function prefectConflict(prefectedStudent) {
+    console.log("there can be only one winner of each type!");
+    removeOther(prefectedStudent);
+  }
+
+  function removeOther(prefectedStudent) {
+    //ask the user to ignore or remove 'other'
+    document.querySelector("#remove-other").classList.remove("hide");
+    document.querySelector("#remove-other .closebutton").addEventListener("click", closeDialog);
+    document.querySelector("#remove-other #remove-other-button").addEventListener("click", clickRemoveOther);
+
+    document.querySelector("#remove-other [data-field=other-prefect]").textContent = prefectedStudent.firstName;
+
+    function closeDialog() {
+      document.querySelector("#remove-other").classList.add("hide");
+      document.querySelector("#remove-other .closebutton").removeEventListener("click", closeDialog);
+      document.querySelector("#remove-other #remove-other-button").removeEventListener("click", clickRemoveOther);
+    }
+
+    function clickRemoveOther() {
+      removePrefect(prefectedStudent);
+      makePrefect(student);
+      buildList();
+      closeDialog();
+    }
+  }
+
+  // function removeAorB(prefectA, prefectB) {
+  //   //ask the user to ignore or remove a or b
+  //   document.querySelector("#remove-aorb").classList.remove("hide");
+  //   document.querySelector("#remove-aorb .closebutton").addEventListener("click", closeDialog);
+  //   document.querySelector("#remove-aorb #remove-a").addEventListener("click", clickRemoveA);
+  //   document.querySelector("#remove-aorb #remove-b").addEventListener("click", clickRemoveB);
+
+  //   //Show names on the buttons
+  //   document.querySelector("#remove-aorb [data-field=prefectA]").textContent = prefectA.firstName;
+  //   document.querySelector("#remove-aorb [data-field=prefectB]").textContent = prefectB.firstName;
+
+  //   //if user ignore do nothing
+  //   function closeDialog() {
+  //     document.querySelector("#remove-aorb").classList.add("hide");
+  //     document.querySelector("#remove-aorb .closebutton").removeEventListener("click", closeDialog);
+  //     document.querySelector("#remove-aorb #remove-a").removeEventListener("click", clickRemoveA);
+  //     document.querySelector("#remove-aorb #remove-b").removeEventListener("click", clickRemoveB);
+  //   }
+
+  //   function clickRemoveA() {
+  //     //if remove a
+  //     removePrefect(prefectA);
+  //     makePrefect(selectedStudent);
+  //     buildList();
+  //     closeDialog();
+  //   }
+
+  //   // else if remove b
+  //   function clickRemoveB() {
+  //     removePrefect(prefectB);
+  //     makePrefect(selectedStudent);
+  //     buildList();
+  //     closeDialog();
+  //   }
+  // }
+  function removePrefect(prefectStudent) {
+    prefectStudent.prefect = false;
+  }
+
+  function makePrefect(student) {
+    student.prefect = true;
+  }
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);

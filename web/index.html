@@ -99,10 +99,9 @@
         <td data-field="lastName">LAST NAME</td>
         <td data-field="middleName">MIDDLE NAME</td>
         <td data-field="nickName">NICKNAME</td>
-        <!-- <td data-field="imageFilename">IMAGE FILENAME</td> -->
         <td data-field="house">HOUSE</td>
-        <td data-field="prefbutton">PREFECT-BUTTON</td>
-        <td data-field="expbutton">EXPELL-BUTTON</td>
+        <td data-field="prefect" data-prefect="false" class="greyscale">🎖</td>
+        <td data-field="expel">EXPELL-BUTTON</td>
       </tr>
     </template>
 
@@ -112,7 +111,6 @@
       <section class="studentdata">
         <div data-field="avatar"><img src="" /></div>
         <div data-field="crest"><img class="crestimg" src="" /></div>
-        <!-- <div class="fullName">Full name</div> -->
         <div data-field="fullName">Full name</div>
         <div data-field="firstName">First name</div>
         <div data-field="middleName"></div>
@@ -120,17 +118,37 @@
         <div data-field="lastName">LAST NAME</div>
         <div data-field="house">HOUSE</div>
         <div data-field="blood">HOUSE</div>
-
-        <!-- <div class="studentinfo">
-          <div class="data-modal">
-            <h4>First Name:</h4>
-            <h4>Middle Name:</h4>
-            <h4>Nick Name:</h4>
-            <h4>Last Name:</h4>
-            <h4>Blood:</h4>
-            <h4>Extra info:</h4>
-          </div> -->
       </section>
+    </div>
+
+    <!-- dialog box -->
+
+    <div id="remove-other" class="modal hide">
+      <div class="dialog">
+        <button class="closebutton">X</button>
+        <h2>Remember!</h2>
+        <p>
+          There cannot be more than 2 prefect from the same house and keep gender equality in mind - It has to be 1 girl
+          and 1 boy!<br />
+          Do you want to remove your last prefect?
+        </p>
+        <button id="remove-other-button">Remove <span data-field="other-prefect"></span></button>
+      </div>
+    </div>
+
+    <div id="remove-aorb" class="modal hide">
+      <div class="dialog">
+        <button class="closebutton">X</button>
+        <h2>Warning!</h2>
+        <p>
+          There can not be more than two prefects from the same house. <br />
+          Do you want to remove one of the existing prefects?
+        </p>
+        <div class="sidebyside">
+          <button id="remove-a">Remove <span data-field="prefectA"></span></button>
+          <button id="remove-b">Remove <span data-field="prefectB"></span></button>
+        </div>
+      </div>
     </div>
 
     <script src="script.js"></script>
