@@ -20,7 +20,7 @@ const allStudents = [];
 
 //set global variables for sort and filter
 let json;
-let bloodstatus;
+let blood;
 let indexhyphen = 0;
 let firstLetterAfterHyphen = "";
 let smallLettersAfterHyphen = "";
@@ -66,10 +66,10 @@ function registerButtons() {
 }
 
 async function loadJSON() {
-  const respons = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
-  json = await respons.json();
-  const respons1 = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
-  bloodstatus = await respons1.json();
+  const AllStudentsData = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
+  json = await AllStudentsData.json();
+  const AllStudentsBloodData = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
+  blood = await AllStudentsBloodData.json();
   prepareObjects(json);
 }
 
@@ -136,65 +136,36 @@ function prepareObjects(jsonData) {
 
     const fullNameFinal = `${firstNameFinal} ${middleNameFinal} ${lastNameFinal}`;
 
-    // function prepareBlood(bloodData) {
-    //   if (bloodData.half.includes(student.lastName) == true) {
-    //     student.blood = "Half-Blood";
-    //   } else if (bloodData.pure.includes(student.lastName) == true) {
-    //     student.blood = "Pure-Blood";
-    //   }
-    //   if (student.blood == "") {
-    //     student.blood = "Muggle";
-    //   }
-    // }
-    // prepareBlood();
-    // showFullname();
-
     student.firstName = firstNameFinal;
     student.middleName = middleNameFinal;
     student.lastName = lastNameFinal;
     student.fullName = fullNameFinal;
     student.prefect = false;
+    student.inqsquad = false;
     // student.gender = jsonObject.gender
     // newStudent.nickName = nickNameFinal
 
     //newStudent.imageFilename = ;
     student.house = houseFinal;
     student.gender = gender;
-    student.bloodstatus = matchBloodstatusWithStudentName(student);
+    student.blood = isBlood(student);
 
     allStudents.push(student);
   });
 
-  console.log(allStudents);
+  console.table(allStudents);
   displayList(allStudents);
-  // load blood json variable
 }
 
-function matchBloodstatusWithStudentName(student) {
-  if (bloodstatus.half.indexOf(student.lastName) != -1) {
+function isBlood(student) {
+  if (blood.half.indexOf(student.lastName) != -1) {
     return "Half-blood";
-  } else if (bloodstatus.pure.indexOf(student.lastName) != -1) {
+  } else if (blood.pure.indexOf(student.lastName) != -1) {
     return "Pure-blood";
   } else {
-    return "Muggle-born";
+    return "Muggle";
   }
 }
-
-//store new object with cleaned data
-
-// buildList();
-
-//bloodfunction
-// if (data.type === "bloodData") {
-//   //BLOOD
-//   console.log(data);
-//   if (data.data.half.includes(student.lastName)) {
-//     student.blood = "Half-Blood";
-//   } else if (data.data.pure.includes(student.lastName)) {
-//     student.blood = "Pure-Blood";
-//   } else {
-//     student.blood = "Muggle";
-//   }
 
 //----------------filtering
 function selectFilter(event) {
@@ -378,6 +349,15 @@ function displayStudent(student) {
     // console.log("prefect false");
   }
 
+  if (student.inqsquad === true) {
+    // console.log("prefect true");
+    console.log("squaaaaaad");
+    clone.querySelector("[data-field=inq]").classList.add("color");
+  } else {
+    clone.querySelector("[data-field=inq]").classList.remove("color");
+    // console.log("prefect false");
+  }
+
   clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
   clone.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
 
@@ -407,11 +387,7 @@ function displayStudent(student) {
 
   function checkGenderAndHouse(compareStudent) {
     console.log("checkgender runs");
-    // const prefects = allStudents.filter((student) => student.prefect);
-    // const numberOfPrefects = prefects.length;
-    // const other = prefects.filter((student) => student.house === selectedStudent.house).shift();
 
-    //another attempt
     if (
       student.house === compareStudent.house &&
       student.gender === compareStudent.gender &&
@@ -493,6 +469,65 @@ function displayStudent(student) {
     student.prefect = true;
   }
 
+  //INQ SQUAD
+  clone.querySelector("[data-field=inq]").dataset.inq = student.inqsquad;
+  clone.querySelector("[data-field=inq]").addEventListener("click", clickInqSquad);
+
+  function clickInqSquad() {
+    console.log("click inq squad");
+    const index = allStudents.indexOf(student);
+    if (student.expel === false) {
+      if (student.inqsquad === false) {
+        houseSquadCheck();
+      } else {
+        removeSquad();
+      }
+    } else {
+      alert("This student is expelled! An expelled students can't be a part of the Inquisitorial Squad!");
+    }
+  }
+
+  function houseSquadCheck() {
+    console.log("cheking for house squads");
+    if (student.blood === "Pure-blood" || student.house === "Slytherin") {
+      makeSquad();
+    } else {
+      alert("Only pure-blooded students or students Slytherin can join the Inquisitorial Squad!");
+    }
+  }
+
+  function makeSquad() {
+    console.log("makesquad");
+    student.inqsquad = true;
+    // clone.querySelector("[data-field=inq]").classList.add("color");
+    if (student.inqsquad === true) {
+      // console.log("prefect true");
+      console.log("squaaaaaad");
+      document.querySelector("[data-field=inq]").classList.add("color");
+    } else {
+      document.querySelector("[data-field=inq]").classList.remove("color");
+      // console.log("prefect false");
+    }
+    // document.querySelector("#isbtn").classList.add("clickedbutton");
+    // document.querySelector("[data-field=inq]").classList.add("color");
+  }
+
+  function removeSquad() {
+    // document.querySelector("#isbtn").classList.remove("clickedbutton");
+    // allStudents[index].inqsquad = false;
+    student.inqsquad = false;
+    // clone.querySelector("[data-field=inq]").classList.remove("color");
+    if (student.inqsquad === true) {
+      // console.log("prefect true");
+      console.log("squaaaaaad");
+      // clone.querySelector("[data-field=inq]").classList.add("color");
+    } else {
+      // clone.querySelector("[data-field=inq]").classList.remove("color");
+      // console.log("prefect false");
+    }
+    // document.querySelector("[data-field=inq]").classList.remove("color");
+  }
+
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
@@ -524,6 +559,8 @@ function showDetails(student) {
     modal.querySelector("[data-field=avatar]").children[0].src =
       "images/" + student.lastName.toLowerCase() + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
   }
+
+  // student.bloodstatus = isBlood(student);
 
   //modal
   modal.querySelector(".modal .closebutton").addEventListener("click", closeModal);
