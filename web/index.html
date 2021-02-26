@@ -9,56 +9,64 @@
   <body>
     <header>
       <h1>Hogwarts School of Witchcraft and Wizardry</h1>
-      <h2>List of Students</h2>
-      <h3>
-        This is some text regarding the list. Who is on the list what to know about the whole hogwarts school. Also
-        number of students and number of expelled students.Also number of students and number of expelled students.
-        <br />
-        List of things you can do: On this page you can do this and this and that. You can expel a student but you can
-        also prefect them, but only 2 per house. but you can also prefect them, but only 2 per house.
-      </h3>
-    </header>
+      <h2>CLASS OF '91</h2>
+      </header>
+      <div class="introtext">
+        <p>Actions you can do on this page: </p>
+        <ul>
+          <li><b>Get details:</b> Click on each student and get detailed information.</li>
+          <li>🎖 <b>Prefect a student:</b> Only 2 student/ house can be prefected and it has to be 1 girl and 1 boy.</li>
+          <li>🚫 <b>Expel a student:</b> Any student can be expelled but be aware, it cannot be undone.</li>
+          <li>🧙 <b>Expand inquisitoral squad:</b> Only pure-blood students can be added to the squad.</li>
+        </ul>
+        </div>
+    
 
-    <input class="search" type="search" placeholder="Search for student" />
+    <div class="numbers">
+      <div class="total-number-of-students">total nr of students</div>
+      <div class="total-number-of-expelled-students">Expelled students:</div>
+    </div>
 
     <div class="houses-grid">
       <div class="house-1 houseflex">
         <div class="house-1-img houseimg"></div>
         <div class="house-1-studentsnr">24 students</div>
-        <div class="house-1-prefectnr">Prefect selected: 0/2</div>
+        <!-- <div class="house-1-prefectnr">Prefect selected: 0/2</div> -->
       </div>
 
       <div class="house-2 houseflex">
         <div class="house-2-img houseimg"></div>
         <div class="house-2-studentsnr">24 students</div>
-        <div class="house-2-prefectnr">Prefect selected: 0/2</div>
+        <!-- <div class="house-2-prefectnr">Prefect selected: 0/2</div> -->
       </div>
 
       <div class="house-3 houseflex">
         <div class="house-3-img houseimg"></div>
         <div class="house-3-studentsnr">24 students</div>
-        <div class="house-3-prefectnr">Prefect selected: 0/2</div>
+        <!-- <div class="house-3-prefectnr">Prefect selected: 0/2</div> -->
       </div>
 
       <div class="house-4 houseflex">
         <div class="house-4-img houseimg"></div>
         <div class="house-4-studentsnr">24 students</div>
-        <div class="house-4-prefectnr">Prefect selected: 0/2</div>
+        <!-- <div class="house-4-prefectnr">Prefect selected: 0/2</div> -->
       </div>
     </div>
 
-    <div class="filters">
-      <div>
-        <p>
-          Filter by house:
-          <button class="filter" id="griff_filter" data-action="filter" data-filter="griff">Griffindor house</button>
-          <button class="filter" id="huff_filter" data-action="filter" data-filter="huff">Hufflepuff house</button>
-          <button class="filter" id="rav_filter" data-action="filter" data-filter="rav">Ravenclaw house</button>
-          <button class="filter" id="sly_filter" data-action="filter" data-filter="sly">Slytherin house</button>
-          <button class="filter" id="allhouse_filter" data-action="filter" data-filter="allhouse">All houses</button>
-        </p>
+    <div class="controller">
+      <div class="filters left">
+        Filter:
+        <button class="filter" id="griff_filter" data-action="filter" data-filter="griff">Griffindor house</button>
+        <button class="filter" id="huff_filter" data-action="filter" data-filter="huff">Hufflepuff house</button>
+        <button class="filter" id="rav_filter" data-action="filter" data-filter="rav">Ravenclaw house</button>
+        <button class="filter" id="sly_filter" data-action="filter" data-filter="sly">Slytherin house</button>
+        <button class="filter" id="allhouse_filter" data-action="filter" data-filter="allhouse">All</button>
       </div>
-      <div>
+      <div class="right">
+          <input class="search" type="search" placeholder="Search for student" />
+        </div>
+      </div>
+      <!-- <div>
         <p>
           Filter by expel:
           <button class="filter" id="exp_filter" data-action="filter" data-filter="exp">Expelled students</button>
@@ -69,7 +77,7 @@
             All students
           </button>
         </p>
-      </div>
+      </div> -->
     </div>
 
     <table id="list">
@@ -78,12 +86,12 @@
           <th></th>
           <th data-action="sort" data-sort-direction="asc" data-sort="firstName">First Name</th>
           <th data-action="sort" data-sort-direction="asc" data-sort="lastName">Last Name</th>
-          <th>Middle Name</th>
-          <th>Nickname</th>
+          <!-- <th>Middle Name</th> -->
+          <!-- <th>Nickname</th> -->
           <!-- <th>Image Filename</th> -->
           <th>House</th>
-          <th></th>
-          <th></th>
+          <!-- <th>Actions</th> -->
+          <!-- <th></th> -->
         </tr>
       </thead>
       <tbody>
@@ -92,16 +100,18 @@
     </table>
 
     <template id="student">
-      <tr>
+      <tr class="tabledata">
         <!-- <td data-field="fullName">FULL NAME</td> -->
         <td class="avatar" data-field="avatar"><img src="images/nott_t.png" /></td>
         <td data-field="firstName">FIRST NAME</td>
         <td data-field="lastName">LAST NAME</td>
-        <td data-field="middleName">MIDDLE NAME</td>
-        <td data-field="nickName">NICKNAME</td>
+        <!-- <td data-field="middleName">MIDDLE NAME</td> -->
+        <!-- <td data-field="nickName">NICKNAME</td> -->
         <td data-field="house">HOUSE</td>
         <td data-field="prefect" data-prefect="false" class="greyscale">🎖</td>
-        <td data-field="expel">EXPELL-BUTTON</td>
+        <td data-field="expel" data-expel="false">🚫</td>
+ <td data-field="inq" data-inq="false" class="greyscale">🧙</td>
+        
       </tr>
     </template>
 

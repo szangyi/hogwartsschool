@@ -37,7 +37,7 @@ h2 {
   text-transform: uppercase;
   margin-top: 0;
   font-weight: 100;
-  font-size: 1.5vw;
+  font-size: 1vw;
 }
 
 h3 {
@@ -46,7 +46,35 @@ h3 {
   font-size: 1.5vw;
 }
 
+/* styling list */
+.introtext {
+  text-align: left;
+  font-size: 1.2vw;
+  background-color: var(--cream-color);
+  color: var(--primary-color);
+  margin: 1vw 20vw 2vw 20vw;
+  padding: 1vw;
+  font-weight: 300;
+}
+
+.introtext p {
+  font-family: var(--primary-font);
+}
+
+.numbers {
+  margin: 1vw 20vw 2vw 20vw;
+  padding: 1vw;
+  background-color: var(--cream-color);
+  color: var(--primary-color);
+  font-size: 1.2vw;
+  font-weight: 300;
+}
+
 /* styling the table */
+thead th {
+  padding: 3vw 0 2vw 0;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -65,6 +93,38 @@ table tr:last-child td {
 }
 table tr td:last-child {
   border-right: 0;
+}
+
+.tabledata {
+  color: white;
+  font-size: 1.5vw;
+}
+
+/* styling headlines and sorting */
+#sorting {
+  font-family: var(--primary-font);
+  text-align: left;
+  font-size: 2vw;
+}
+
+[data-action] {
+  cursor: pointer;
+}
+
+#sorting th.sortby {
+  text-decoration: underline;
+}
+
+#sorting th.sortby {
+  text-decoration: underline;
+}
+
+#sorting th.sortby[data-sort-direction="asc"]::after {
+  content: "↑";
+}
+
+#sorting th.sortby[data-sort-direction="desc"]::after {
+  content: "↓";
 }
 
 /*styling modal*/
@@ -119,7 +179,33 @@ div.modal {
   align-items: center;
 }
 
-/* styling didalog */
+.house-1-studentsnr,
+.house-2-studentsnr,
+.house-3-studentsnr,
+.house-4-studentsnr {
+  font-size: 1.5vw;
+}
+
+/* styling controller */
+.controller {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.right {
+  text-align: end;
+  float: left;
+}
+
+.search {
+  font-size: 1.2vw;
+}
+
+.filter {
+  font-size: 1.2vw;
+}
+
+/* styling dialog */
 .dialog {
   box-shadow: 1px 1px 10px rgb(25, 25, 25);
   padding: 2em;
@@ -127,27 +213,6 @@ div.modal {
   background-color: whitesmoke;
   position: relative;
   color: black;
-}
-
-/* styling sorting */
-[data-action] {
-  cursor: pointer;
-}
-
-#sorting th.sortby {
-  text-decoration: underline;
-}
-
-#sorting th.sortby {
-  text-decoration: underline;
-}
-
-#sorting th.sortby[data-sort-direction="asc"]::after {
-  content: "↑";
-}
-
-#sorting th.sortby[data-sort-direction="desc"]::after {
-  content: "↓";
 }
 
 /* house colors */

@@ -19,6 +19,8 @@ const Student = {
 const allStudents = [];
 
 //set global variables for sort and filter
+let json;
+let bloodstatus;
 let indexhyphen = 0;
 let firstLetterAfterHyphen = "";
 let smallLettersAfterHyphen = "";
@@ -38,6 +40,7 @@ function start() {
   // TODO: Add event-listeners to filter and sort buttons
   registerButtons();
   loadJSON();
+  // loadbloodJSON();
 }
 
 function searchStudent(event) {
@@ -62,16 +65,45 @@ function registerButtons() {
   document.querySelectorAll("[data-action='sort']").forEach((button) => button.addEventListener("click", selectSort));
 }
 
-function loadJSON() {
-  fetch("https://petlatkea.dk/2021/hogwarts/students.json")
-    .then((response) => response.json())
-    .then((jsonData) => {
-      prepareObjects(jsonData);
-    });
+async function loadJSON() {
+  const respons = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
+  json = await respons.json();
+  const respons1 = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
+  bloodstatus = await respons1.json();
+  prepareObjects(json);
 }
+
+// async function fetchBloodstatusData() {
+//   const respons = await fetch(bloodstatuslink);
+//   bloodstatus = await respons.json();
+// }
+
+// function loadJSON() {
+//   fetch("https://petlatkea.dk/2021/hogwarts/students.json")
+//     .then((response) => response.json())
+//     .then((jsonData) => {
+//       // let data = { data: jsonData, type: "allData" };
+//       prepareObjects(jsonData);
+//     });
+// }
+
+// function loadbloodJSON() {
+//   fetch("https://petlatkea.dk/2021/hogwarts/families.json")
+//     .then((response2) => response2.json())
+//     .then((bloodData) => {
+//       // let data = { data: bloodData, type: "bloodData" };
+//       prepareObjects(data);
+//     });
+// }
+
+// async function loadbloodJSON() {
+//   const bloodJSON = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
+//   bloodList = await bloodJSON.json();
+// }
 
 function prepareObjects(jsonData) {
   // console.log("jsonprepareloads");
+  // if (data.type === "allData") {
   jsonData.forEach((jsonObject) => {
     // create a new object with clean data
     const student = Object.create(Student);
@@ -104,6 +136,17 @@ function prepareObjects(jsonData) {
 
     const fullNameFinal = `${firstNameFinal} ${middleNameFinal} ${lastNameFinal}`;
 
+    // function prepareBlood(bloodData) {
+    //   if (bloodData.half.includes(student.lastName) == true) {
+    //     student.blood = "Half-Blood";
+    //   } else if (bloodData.pure.includes(student.lastName) == true) {
+    //     student.blood = "Pure-Blood";
+    //   }
+    //   if (student.blood == "") {
+    //     student.blood = "Muggle";
+    //   }
+    // }
+    // prepareBlood();
     // showFullname();
 
     student.firstName = firstNameFinal;
@@ -117,14 +160,41 @@ function prepareObjects(jsonData) {
     //newStudent.imageFilename = ;
     student.house = houseFinal;
     student.gender = gender;
+    student.bloodstatus = matchBloodstatusWithStudentName(student);
 
-    //store new object with cleaned data
     allStudents.push(student);
   });
+
   console.log(allStudents);
   displayList(allStudents);
-  // buildList();
+  // load blood json variable
 }
+
+function matchBloodstatusWithStudentName(student) {
+  if (bloodstatus.half.indexOf(student.lastName) != -1) {
+    return "Half-blood";
+  } else if (bloodstatus.pure.indexOf(student.lastName) != -1) {
+    return "Pure-blood";
+  } else {
+    return "Muggle-born";
+  }
+}
+
+//store new object with cleaned data
+
+// buildList();
+
+//bloodfunction
+// if (data.type === "bloodData") {
+//   //BLOOD
+//   console.log(data);
+//   if (data.data.half.includes(student.lastName)) {
+//     student.blood = "Half-Blood";
+//   } else if (data.data.pure.includes(student.lastName)) {
+//     student.blood = "Pure-Blood";
+//   } else {
+//     student.blood = "Muggle";
+//   }
 
 //----------------filtering
 function selectFilter(event) {
@@ -265,6 +335,9 @@ function displayList(allStudents) {
 
   // build a new list
   allStudents.forEach(displayStudent);
+
+  //show numbers
+  document.querySelector(".total-number-of-students").textContent = `Total number of students: ${allStudents.length}`;
 }
 
 function displayStudent(student) {
@@ -274,13 +347,13 @@ function displayStudent(student) {
   // set clone data
   clone.querySelector("[data-field=firstName]").textContent = student.firstName;
 
-  if (student.middleName.includes('"')) {
-    clone.querySelector("[data-field=nickName]").textContent = student.middleName;
-    clone.querySelector("[data-field=middleName]").textContent = " ";
-  } else {
-    clone.querySelector("[data-field=middleName]").textContent = student.middleName;
-    clone.querySelector("[data-field=nickName]").textContent = " ";
-  }
+  // if (student.middleName.includes('"')) {
+  //   clone.querySelector("[data-field=nickName]").textContent = student.middleName;
+  //   clone.querySelector("[data-field=middleName]").textContent = " ";
+  // } else {
+  //   clone.querySelector("[data-field=middleName]").textContent = student.middleName;
+  //   clone.querySelector("[data-field=nickName]").textContent = " ";
+  // }
 
   clone.querySelector("[data-field=lastName]").textContent = student.lastName;
 
