@@ -12,11 +12,12 @@ const Student = {
   gender: "",
   prefect: false,
   inqsquad: false,
-  expel: false,
+  expelled: false,
   blood: "",
 };
 
-const allStudents = [];
+let allStudents = [];
+let expelledList = [];
 
 //set global variables for sort and filter
 let json;
@@ -61,6 +62,8 @@ function registerButtons() {
   document
     .querySelectorAll("[data-action='filter']")
     .forEach((button) => button.addEventListener("click", selectFilter));
+
+  document.querySelector("[data-filter='expelled']").addEventListener("click", showExpelled);
 
   document.querySelectorAll("[data-action='sort']").forEach((button) => button.addEventListener("click", selectSort));
 }
@@ -308,7 +311,13 @@ function displayList(allStudents) {
   allStudents.forEach(displayStudent);
 
   //show numbers
-  document.querySelector(".total-number-of-students").textContent = `Total number of students: ${allStudents.length}`;
+  document.querySelector(".total-number-of-students").textContent = `${allStudents.length} students`;
+  document.querySelector(".expelled-number-of-students").textContent = `${expelledList.length} students`;
+
+  document.querySelector(".house-1-studentsnr").textContent = `${allStudents.filter(isGriff).length} students`;
+  document.querySelector(".house-2-studentsnr").textContent = `${allStudents.filter(isHuff).length} students`;
+  document.querySelector(".house-3-studentsnr").textContent = `${allStudents.filter(isRav).length} students`;
+  document.querySelector(".house-4-studentsnr").textContent = `${allStudents.filter(isSly).length} students`;
 }
 
 function displayStudent(student) {
@@ -528,6 +537,18 @@ function displayStudent(student) {
     // document.querySelector("[data-field=inq]").classList.remove("color");
   }
 
+  //expel
+  clone.querySelector("[data-field=expelled]").addEventListener("click", clickExpel);
+
+  function clickExpel() {
+    if (student.expelled === true) {
+      student.expelled = false;
+    } else {
+      tryToExpelStudent(student);
+    }
+    //buildList();
+  }
+
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
@@ -585,4 +606,52 @@ function showDetails(student) {
   } else if (student.house === "Ravenclaw") {
     modal.classList.add("rav_house");
   }
+}
+
+//expel
+function tryToExpelStudent(student) {
+  let dialog = document.querySelector("#expell-dialog");
+
+  dialog.classList.remove("hide");
+  dialog.querySelector("#expell").addEventListener("click", clickExpelStudent);
+  dialog.querySelector("#close2").addEventListener("click", closeExpellDialog);
+
+  function clickExpelStudent() {
+    dialog.classList.add("hide");
+    dialog.querySelector("#expell").removeEventListener("click", clickExpelStudent);
+    dialog.querySelector("#close2").removeEventListener("click", closeExpellDialog);
+
+    student.expelled = true;
+    expelledList.push(student);
+    console.log(allStudents.filter((student) => student.expelled === false));
+    allStudents = allStudents.filter((student) => student.expelled === false);
+
+    displayList(allStudents);
+    closeExpellDialog();
+  }
+
+  function closeExpellDialog() {
+    dialog.classList.add("hide");
+    dialog.querySelector("#expell").removeEventListener("click", clickExpelStudent);
+    dialog.querySelector("#close2").removeEventListener("click", closeExpellDialog);
+  }
+}
+
+function showExpelled() {
+  console.log(expelledList);
+  console.log(allStudents);
+  displayList(expelledList);
+}
+
+// actionstab
+document.querySelector(".actionstab").addEventListener("mouseover", actionsmodalOpen);
+
+function actionsmodalOpen() {
+  console.log("onmouse");
+  document.querySelector(".introtext").classList.remove("hide");
+}
+document.querySelector(".actionstab").addEventListener("mouseout", actionsmodalCloses);
+function actionsmodalCloses() {
+  console.log("mouseout");
+  document.querySelector(".introtext").classList.add("hide");
 }

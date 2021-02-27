@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <h1>Hogwarts School of Witchcraft and Wizardry</h1>
-      <h2>CLASS OF '91</h2>
-      </header>
-      <div class="introtext">
-        <p>Actions you can do on this page: </p>
+
+<div class=actionstab>
+  ?⃝ Actions
+</div>
+
+      <div class="introtext hide">
+        <p>ACTIONS YOU CAN DO ON THIS PAGE</p>
         <ul>
           <li><b>Get details:</b> Click on each student and get detailed information.</li>
           <li>🎖 <b>Prefect a student:</b> Only 2 student/ house can be prefected and it has to be 1 girl and 1 boy.</li>
@@ -20,14 +21,31 @@
           <li>🧙 <b>Expand inquisitoral squad:</b> Only pure-blood students or students from Slytherin house can be added to the squad.</li>
         </ul>
         </div>
-    
 
-    <div class="numbers">
+    <header>
+      <h1>Hogwarts</h1>
+      <h2>School of Witchcraft and Wizardry</h2>
+      <h5>Student list - year 1991</h5>
+      </header>
+
+    <!-- <div class="numbers">
       <div class="total-number-of-students">total nr of students</div>
       <div class="total-number-of-expelled-students">Expelled students:</div>
-    </div>
+    </div> -->
 
     <div class="houses-grid">
+       <div class="house-1 houseflex">
+        <div class="hogwards-img houseimg"></div>
+        <div class="total-number-of-students">24 students</div>
+        <!-- <div class="house-1-prefectnr">Prefect selected: 0/2</div> -->
+      </div>
+
+       <div class="house-1 houseflex">
+        <div class="expelled-img houseimg"></div>
+        <div class="expelled-number-of-students">24 students</div>
+        <!-- <div class="house-1-prefectnr">Prefect selected: 0/2</div> -->
+      </div>
+
       <div class="house-1 houseflex">
         <div class="house-1-img houseimg"></div>
         <div class="house-1-studentsnr">24 students</div>
@@ -60,6 +78,7 @@
         <button class="filter" id="huff_filter" data-action="filter" data-filter="huff">Hufflepuff house</button>
         <button class="filter" id="rav_filter" data-action="filter" data-filter="rav">Ravenclaw house</button>
         <button class="filter" id="sly_filter" data-action="filter" data-filter="sly">Slytherin house</button>
+        <button class="filter" id="expelled_filter" data-action="filter" data-filter="expelled">Expelled</button>
         <button class="filter" id="allhouse_filter" data-action="filter" data-filter="allhouse">All</button>
       </div>
       <div class="right">
@@ -109,7 +128,7 @@
         <!-- <td data-field="nickName">NICKNAME</td> -->
         <td data-field="house">HOUSE</td>
         <td data-field="prefect" data-prefect="false" class="greyscale">🎖</td>
-        <td data-field="expel" data-expel="false">🚫</td>
+        <td data-field="expelled" data-expel="false">🚫</td>
         <td data-field="inq" data-inq="false" class="greyscale">🧙</td>
         
       </tr>
@@ -136,7 +155,7 @@
     <div id="remove-other" class="modal hide">
       <div class="dialog">
         <button class="closebutton">X</button>
-        <h2>Remember!</h2>
+        <h3>Remember!</h3>
         <p>
           There cannot be more than 2 prefect from the same house and keep gender equality in mind - It has to be 1 girl
           and 1 boy!<br />
@@ -149,7 +168,7 @@
     <div id="remove-aorb" class="modal hide">
       <div class="dialog">
         <button class="closebutton">X</button>
-        <h2>Warning!</h2>
+        <h3>Warning!</h3>
         <p>
           There can not be more than two prefects from the same house. <br />
           Do you want to remove one of the existing prefects?
@@ -158,6 +177,19 @@
           <button id="remove-a">Remove <span data-field="prefectA"></span></button>
           <button id="remove-b">Remove <span data-field="prefectB"></span></button>
         </div>
+      </div>
+    </div>
+
+    <div id="expell-dialog" class="modal hide">
+      <div class="dialog">
+        <h3>Warning!</h3>
+        <p>
+          Expelling the student is final and will remove the student from the
+          list permanently. Do you want to
+          proceed and expell the student?
+        </p>
+        <button id="expell" class="dialogbtn">Expell</button>
+        <button id="close2" class="dialogbtn">Close</button>
       </div>
     </div>
 
