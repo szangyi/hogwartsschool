@@ -158,11 +158,38 @@ div.modal {
   z-index: 10;
   top: 8rem;
   color: var(--main-color);
-  width: 50%;
+  width: 35%;
   overflow: scroll;
   position: fixed;
-  left: 25%;
+  left: 35%;
   border-radius: 5px;
+}
+
+.studentdata {
+  color: white;
+  text-align: center;
+  padding: 3vw 5vw;
+}
+
+.modalavatar img {
+  width: 10vw;
+  height: auto;
+}
+
+.modalcrest {
+  position: absolute;
+  top: 1vw;
+  right: 11.5vw;
+}
+
+.modalcrest img {
+  width: 4vw;
+  height: 5.5vw;
+}
+
+.modalfullname {
+  font-size: 2vw;
+  padding: 1vw 0 2vw 0;
 }
 
 .hide {
@@ -256,6 +283,12 @@ div.modal {
   position: relative;
   color: white;
   text-align: center;
+}
+
+.closebutton {
+  position: absolute;
+  right: 1vw;
+  top: 1.5vw;
 }
 
 .dialog h3 {

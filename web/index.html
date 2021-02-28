@@ -85,18 +85,7 @@
           <input class="search" type="search" placeholder="Search for student" />
         </div>
       </div>
-      <!-- <div>
-        <p>
-          Filter by expel:
-          <button class="filter" id="exp_filter" data-action="filter" data-filter="exp">Expelled students</button>
-          <button class="filter" id="nonexp_filter" data-action="filter" data-filter="nonexp">
-            Non-expelled students
-          </button>
-          <button class="filter" id="huff_filter" data-action="filter" data-filter="allexpstudents">
-            All students
-          </button>
-        </p>
-      </div> -->
+
     </div>
 
     <table id="list">
@@ -105,12 +94,7 @@
           <th></th>
           <th data-action="sort" data-sort-direction="asc" data-sort="firstName">First Name</th>
           <th data-action="sort" data-sort-direction="asc" data-sort="lastName">Last Name</th>
-          <!-- <th>Middle Name</th> -->
-          <!-- <th>Nickname</th> -->
-          <!-- <th>Image Filename</th> -->
-          <th>House</th>
-          <!-- <th>Actions</th> -->
-          <!-- <th></th> -->
+          <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
         </tr>
       </thead>
       <tbody>
@@ -121,12 +105,10 @@
     <template id="student">
       <tr class="tabledata">
         <!-- <td data-field="fullName">FULL NAME</td> -->
-        <td class="avatar" data-field="avatar"><img src="images/nott_t.png" /></td>
-        <td data-field="firstName">FIRST NAME</td>
-        <td data-field="lastName">LAST NAME</td>
-        <!-- <td data-field="middleName">MIDDLE NAME</td> -->
-        <!-- <td data-field="nickName">NICKNAME</td> -->
-        <td data-field="house">HOUSE</td>
+        <td class="avatar" data-field="avatar"><img src="" /></td>
+        <td data-field="firstName"></td>
+        <td data-field="lastName"></td>
+        <td data-field="house"></td>
         <td data-field="prefect" data-prefect="false" class="greyscale">🎖</td>
         <td data-field="expelled" data-expel="false">🚫</td>
         <td data-field="inq" data-inq="false" class="greyscale">🧙</td>
@@ -136,17 +118,20 @@
 
     <!-- modal -->
     <div class="modal hide">
-      <span class="closebutton"><p>X</p></span>
+      <button class="closebutton">X</button>
       <section class="studentdata">
-        <div data-field="avatar"><img src="" /></div>
-        <div data-field="crest"><img class="crestimg" src="" /></div>
-        <div data-field="fullName">Full name</div>
-        <div data-field="firstName">First name</div>
+        <div data-field="avatar" class="modalavatar"><img src="" /></div>
+        <div data-field="crest" class="modalcrest"><img class="crestimg" src="" /></div>
+        <div data-field="fullName" class="modalfullname"></div>
+        <div data-field="firstName"></div>
         <div data-field="middleName"></div>
         <div data-field="nickName"></div>
-        <div data-field="lastName">LAST NAME</div>
-        <div data-field="house">HOUSE</div>
-        <div data-field="blood">HOUSE</div>
+        <div data-field="lastName"></div>
+        <div data-field="house"></div>
+        <div data-field="blood"></div>
+        <div data-field="prefect"></div>
+        <div data-field="inq"></div>
+        <div data-field="expelled"></div>
       </section>
     </div>
 
@@ -182,6 +167,7 @@
 
     <div id="expell-dialog" class="modal hide">
       <div class="dialog">
+        <button class="closebutton">X</button>
         <h3>Warning!</h3>
         <p>
           Expelling the student is final and will remove the student from the
@@ -189,7 +175,16 @@
           proceed and expell the student?
         </p>
         <button id="expell" class="dialogbtn">Expell</button>
-        <button id="close2" class="dialogbtn">Close</button>
+      </div>
+    </div>
+
+    <div id="inq-dialog" class="modal hide">
+      <div class="dialog">
+         <button class="closebutton">X</button>
+        <h3>Remember!</h3>
+        <p>
+          Only pure-blooded students or students Slytherin can join the Inquisitorial Squad!
+        </p>
       </div>
     </div>
 

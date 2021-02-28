@@ -314,7 +314,9 @@ function displayList(allStudents) {
   document.querySelector(".total-number-of-students").textContent = `${allStudents.length} students`;
   document.querySelector(".expelled-number-of-students").textContent = `${expelledList.length} students`;
 
-  document.querySelector(".house-1-studentsnr").textContent = `${allStudents.filter(isGriff).length} students`;
+  const griffStudentNumber = allStudents.filter(isGriff).length;
+
+  document.querySelector(".house-1-studentsnr").textContent = `${griffStudentNumber} students`;
   document.querySelector(".house-2-studentsnr").textContent = `${allStudents.filter(isHuff).length} students`;
   document.querySelector(".house-3-studentsnr").textContent = `${allStudents.filter(isRav).length} students`;
   document.querySelector(".house-4-studentsnr").textContent = `${allStudents.filter(isSly).length} students`;
@@ -355,15 +357,6 @@ function displayStudent(student) {
     clone.querySelector("[data-field=prefect]").classList.add("color");
   } else {
     clone.querySelector("[data-field=prefect]").classList.remove("color");
-    // console.log("prefect false");
-  }
-
-  if (student.inqsquad === true) {
-    // console.log("prefect true");
-    console.log("squaaaaaad");
-    clone.querySelector("[data-field=inq]").classList.add("color");
-  } else {
-    clone.querySelector("[data-field=inq]").classList.remove("color");
     // console.log("prefect false");
   }
 
@@ -479,20 +472,25 @@ function displayStudent(student) {
   }
 
   //INQ SQUAD
+  if (student.inqsquad === true) {
+    // console.log("prefect true");
+    console.log("squaaaaaad");
+    clone.querySelector("[data-field=inq]").classList.add("color");
+  } else {
+    clone.querySelector("[data-field=inq]").classList.remove("color");
+    // console.log("prefect false");
+  }
+
   clone.querySelector("[data-field=inq]").dataset.inq = student.inqsquad;
   clone.querySelector("[data-field=inq]").addEventListener("click", clickInqSquad);
 
   function clickInqSquad() {
     console.log("click inq squad");
     const index = allStudents.indexOf(student);
-    if (student.expel === false) {
-      if (student.inqsquad === false) {
-        houseSquadCheck();
-      } else {
-        removeSquad();
-      }
+    if (student.inqsquad === false) {
+      houseSquadCheck();
     } else {
-      alert("This student is expelled! An expelled students can't be a part of the Inquisitorial Squad!");
+      removeSquad();
     }
   }
 
@@ -501,7 +499,15 @@ function displayStudent(student) {
     if (student.blood === "Pure-blood" || student.house === "Slytherin") {
       makeSquad();
     } else {
-      alert("Only pure-blooded students or students Slytherin can join the Inquisitorial Squad!");
+      let dialog = document.querySelector("#inq-dialog");
+
+      dialog.classList.remove("hide");
+      dialog.querySelector(".closebutton").addEventListener("click", closeInqDialog);
+
+      function closeInqDialog() {
+        dialog.classList.add("hide");
+        dialog.querySelector(".closebutton").removeEventListener("click", closeInqDialog);
+      }
     }
   }
 
@@ -537,6 +543,34 @@ function displayStudent(student) {
     // document.querySelector("[data-field=inq]").classList.remove("color");
   }
 
+  function tryToExpelStudent(student) {
+    let dialog = document.querySelector("#expell-dialog");
+
+    dialog.classList.remove("hide");
+    dialog.querySelector("#expell").addEventListener("click", clickExpelStudent);
+    dialog.querySelector(".closebutton").addEventListener("click", closeExpellDialog);
+
+    function clickExpelStudent() {
+      dialog.classList.add("hide");
+      dialog.querySelector("#expell").removeEventListener("click", clickExpelStudent);
+      dialog.querySelector(".closebutton").removeEventListener("click", closeExpellDialog);
+
+      student.expelled = true;
+      expelledList.push(student);
+      console.log(allStudents.filter((student) => student.expelled === false));
+      allStudents = allStudents.filter((student) => student.expelled === false);
+
+      displayList(allStudents);
+      closeExpellDialog();
+    }
+
+    function closeExpellDialog() {
+      dialog.classList.add("hide");
+      dialog.querySelector("#expell").removeEventListener("click", clickExpelStudent);
+      dialog.querySelector(".closebutton").removeEventListener("click", closeExpellDialog);
+    }
+  }
+
   //expel
   clone.querySelector("[data-field=expelled]").addEventListener("click", clickExpel);
 
@@ -562,6 +596,9 @@ function showDetails(student) {
   modal.querySelector("[data-field=lastName]").textContent = `Last name: ${student.lastName}`;
   modal.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
   modal.querySelector("[data-field=blood]").textContent = `Blood: ${student.blood}`;
+  modal.querySelector("[data-field=prefect]").textContent = `Prefect: ${student.prefect}`;
+  modal.querySelector("[data-field=inq]").textContent = `Inquisitor Squad: ${student.inqsquad}`;
+  modal.querySelector("[data-field=expelled]").textContent = `Expelled: ${student.expelled}`;
 
   if (student.middleName.includes('"')) {
     modal.querySelector("[data-field=nickName]").textContent = `Nick name: ${student.middleName}`;
@@ -614,12 +651,12 @@ function tryToExpelStudent(student) {
 
   dialog.classList.remove("hide");
   dialog.querySelector("#expell").addEventListener("click", clickExpelStudent);
-  dialog.querySelector("#close2").addEventListener("click", closeExpellDialog);
+  dialog.querySelector(".closebutton").addEventListener("click", closeExpellDialog);
 
   function clickExpelStudent() {
     dialog.classList.add("hide");
     dialog.querySelector("#expell").removeEventListener("click", clickExpelStudent);
-    dialog.querySelector("#close2").removeEventListener("click", closeExpellDialog);
+    dialog.querySelector(".closebutton").removeEventListener("click", closeExpellDialog);
 
     student.expelled = true;
     expelledList.push(student);
@@ -633,7 +670,7 @@ function tryToExpelStudent(student) {
   function closeExpellDialog() {
     dialog.classList.add("hide");
     dialog.querySelector("#expell").removeEventListener("click", clickExpelStudent);
-    dialog.querySelector("#close2").removeEventListener("click", closeExpellDialog);
+    dialog.querySelector(".closebutton").removeEventListener("click", closeExpellDialog);
   }
 }
 
