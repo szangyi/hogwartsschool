@@ -696,7 +696,9 @@ function actionsmodalOpen() {
   console.log("onmouse");
   document.querySelector(".introtext").classList.remove("hide");
 }
+
 document.querySelector(".actionstab").addEventListener("mouseout", actionsmodalCloses);
+
 function actionsmodalCloses() {
   console.log("mouseout");
   document.querySelector(".introtext").classList.add("hide");
