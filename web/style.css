@@ -88,6 +88,7 @@ h3 {
 }
 
 /* styling the table */
+
 thead th {
   padding: 3vw 0 2vw 0;
 }
@@ -121,6 +122,10 @@ table tr td:last-child {
 .avatar img {
   width: 3.5vw;
   height: 3.5vw;
+}
+
+.avatar:hover {
+  transform: scale(1.05);
 }
 
 /* styling headlines and sorting */
@@ -158,7 +163,7 @@ div.modal {
   z-index: 10;
   top: 8rem;
   color: var(--main-color);
-  width: 35%;
+  width: 25%;
   overflow: scroll;
   position: fixed;
   left: 35%;
@@ -179,7 +184,7 @@ div.modal {
 .modalcrest {
   position: absolute;
   top: 1vw;
-  right: 11.5vw;
+  right: 6vw;
 }
 
 .modalcrest img {
@@ -188,8 +193,16 @@ div.modal {
 }
 
 .modalfullname {
-  font-size: 2vw;
-  padding: 1vw 0 2vw 0;
+  font-family: var(--primary-font);
+  font-size: 1.5vw;
+  padding: 1vw 0 0.5vw 0;
+  margin-bottom: 1vw;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.295);
+}
+
+.extrainfogrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .hide {
@@ -273,6 +286,16 @@ div.modal {
   background-color: white;
   border: 0.5px, solid, var(--cream-color);
   color: var(--light-primary-color);
+}
+
+.filter:active {
+  background-color: var(--cream-color);
+  color: var(--primary-font);
+}
+
+.activefilter {
+  background-color: var(--cream-color);
+  color: var(--primary-font);
 }
 
 /* styling dialog */
